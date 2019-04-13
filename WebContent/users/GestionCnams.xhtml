@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{cnamsBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{cnamsBean.listCnams}" var="cna" id="tab">
+
+			<p:column headerText="ID Centre">
+				<h:outputText value="#{cna.id}" />
+			</p:column>
+
+
+
+			<p:column headerText="Nom de Centre">
+				<h:outputText value="#{cna.nom}" />
+			</p:column>
+
+         <p:column headerText="Longitude Centre">
+				<h:outputText value="#{cna.longitude}" />
+			</p:column>
+			<p:column headerText="Attitude Centre">
+				<h:outputText value="#{cna.attitude}" />
+			</p:column>
+						
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{cnamsBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{cna}" target="#{cnamsBean.cnams}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="Modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{cnamsBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{cna}" target="#{cnamsBean.cnams}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+			
+				<h:outputText value="Nom" />
+				<p:inputText value="#{cnamsBean.cnams.nom}" />
+
+			
+				<h:outputText value="Longitude" />
+				<p:inputText value="#{cnamsBean.cnams.longitude}" />
+				
+				<h:outputText value="Attitude" />
+				<p:inputText value="#{cnamsBean.cnams.attitude}" />
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{cnamsBean.ajouterCnams()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{cnamsBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{cnamsBean.modiferCnams()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{cnamsBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

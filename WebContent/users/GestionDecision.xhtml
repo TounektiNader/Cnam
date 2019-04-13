@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{decisionBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{decisionBean.listDecision}" var="de" id="tab">
+
+		
+			
+			
+			<p:column headerText="Code Decision">
+				<h:outputText value="#{de.codDecision}" />
+			</p:column>
+			
+					<p:column headerText="Code Prise En Charge">
+				<h:outputText value="#{de.priseencharge.codDpe}" />
+			</p:column>
+			
+				<p:column headerText="Type Décision">
+				<h:outputText value="#{de.libelle}" />
+			</p:column>
+			
+	
+						
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{decisionBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{de}" target="#{decisionBean.decision}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{decisionBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{de}" target="#{decisionBean.decision}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+			
+				<h:outputText value="Code Acte" />
+				<p:inputText value="#{decisionBean.decision.codDecision}" readonly="#{decisionBean.read}" />
+	
+				
+				<h:outputText value="Code Prise En Charge" />
+				<p:selectOneMenu   disabled="#{decisionBean.read}"    value="#{decisionBean.decision.priseencharge.codDpe}">
+					<f:selectItems value="#{priseenchargeBean.listPriseencharge}" var="ps"  
+						itemLabel="#{ps.codDpe}" itemValue="#{ps.codDpe}"  />
+				</p:selectOneMenu> 
+				
+				
+				
+				
+					<h:outputText value="Libellé" />
+			
+				
+				<p:selectOneRadio value="#{decisionBean.decision.libelle}" >
+				
+				<f:selectItem itemLabel="Saisie" itemValue="Saisie"/>
+				<f:selectItem itemLabel="Contrôle Medicale" itemValue="Contrôle Medicale"/>
+				<f:selectItem itemLabel="Editée" itemValue="Editée"/>
+				<f:selectItem itemLabel="Refusée" itemValue="Refusée"/>
+				</p:selectOneRadio>
+				
+								
+				<p:commandButton value="ajouter"
+					action="#{decisionBean.ajouterDecision()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{decisionBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{decisionBean.modiferDecision()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{decisionBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

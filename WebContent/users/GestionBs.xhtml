@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{bulletindesoinBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{bulletindesoinBean.listBulletindesoin}" var="bs" id="tab">
+
+		
+			
+			
+			<p:column headerText="Code De Bulletin De Soin ">
+				<h:outputText value="#{bs.codBdeSoin}" />
+			</p:column>
+			
+				<p:column headerText="Date Dépôt">
+				<h:outputText value="#{bs.dateDepot}" />
+			</p:column>
+			
+			<p:column headerText="Code Centre Cnam Dépôt ">
+				<h:outputText value="#{bs.centrecnam.codeCnam}" />
+			</p:column>
+			
+			<p:column headerText="Date Visit ">
+				<h:outputText value="#{bs.dateVisite}" />
+			</p:column>
+			
+			
+			
+			<p:column headerText="Numéro ">
+				<h:outputText value="#{bs.numero}" />
+			</p:column>
+			
+			
+			<p:column headerText="Total Actes ">
+				<h:outputText value="#{bs.totalActes}" />
+			</p:column>
+			
+			
+			<p:column headerText="Total Ordonnance ">
+				<h:outputText value="#{bs.totalOrdonnance}" />
+			</p:column>
+			
+			
+			<p:column headerText="Total Visit">
+				<h:outputText value="#{bs.totalVisit}" />
+			</p:column>
+			
+			
+			<p:column headerText="Total Rembourssé ">
+				<h:outputText value="#{bs.totalrembourse}" />
+			</p:column>
+			
+					
+			
+			<p:column headerText="Date Virement ">
+				<h:outputText value="#{bs.dateVirement}" />
+			</p:column>
+			
+			
+			<p:column headerText="Etat ">
+				<h:outputText value="#{bs.etat}" />
+			</p:column>
+								
+			
+			
+			
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{bulletindesoinBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{bs}" target="#{bulletindesoinBean.bulletindesoin}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{bulletindesoinBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{bs}" target="#{bulletindesoinBean.bulletindesoin}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+				<h:outputText value="Code De Bulletin De Soin" />
+				<p:inputText value="#{bulletindesoinBean.bulletindesoin.codBdeSoin}" readonly="#{bulletindesoinBean.read}" />
+				
+				<h:outputText value="Date Dépôt" />
+				<p:calendar pattern="dd/MM/yyyy" value="#{bulletindesoinBean.bulletindesoin.dateDepot}"  readonly="#{bulletindesoinBean.read}"  />
+				
+				
+				
+			
+				<h:outputText value="Code Centre Cnam Dépôt" />
+				<p:selectOneMenu   disabled="#{bulletindesoinBean.read}"    value="#{bulletindesoinBean.bulletindesoin.centrecnam.codeCnam}">
+					<f:selectItems value="#{centrecnamBean.listCentrecnam}" var="ccc"  
+						itemLabel="#{ccc.codeCnam}" itemValue="#{ccc.codeCnam}"  />
+				</p:selectOneMenu> 
+				
+				
+				<h:outputText value="Date Visit" />
+				<p:calendar pattern="dd/MM/yyyy" value="#{bulletindesoinBean.bulletindesoin.dateVisite}"  readonly="#{bulletindesoinBean.read}" />
+				
+				<h:outputText value="Numéro" />
+				<p:inputText value="#{bulletindesoinBean.bulletindesoin.numero}" />
+				
+				<h:outputText value="Total Actes" />
+				<p:inputText value="#{bulletindesoinBean.bulletindesoin.totalActes}"   />
+				
+				<h:outputText value="Total Ordonnance" />
+				<p:inputText value="#{bulletindesoinBean.bulletindesoin.totalOrdonnance}"   />
+				
+				<h:outputText value="Total  Visit" />
+				<p:inputText value="#{bulletindesoinBean.bulletindesoin.totalVisit}"   />
+				
+				
+				<h:outputText value="Total Rembourssé" />
+				<p:inputText value="#{bulletindesoinBean.bulletindesoin.totalrembourse}"  />
+				
+				<h:outputText value="Date Virement" />
+				<p:calendar pattern="dd/MM/yyyy" value="#{bulletindesoinBean.bulletindesoin.dateVirement}"  />
+				
+				<h:outputText value="Etat" />
+				
+				<p:selectOneRadio value="#{bulletindesoinBean.bulletindesoin.etat}" >
+				
+				<f:selectItem itemLabel="Saisie" itemValue="Saisie"/>
+				<f:selectItem itemLabel="Contrôle Medicale" itemValue="Contrôle Medicale"/>
+				<f:selectItem itemLabel="Traité" itemValue="Traité"/>
+				<f:selectItem itemLabel="Refusé" itemValue="Refusé"/>
+				</p:selectOneRadio>
+				
+			
+				
+				
+
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{bulletindesoinBean.ajouterBulletindesoin()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{bulletindesoinBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{bulletindesoinBean.modiferBulletindesoin()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{bulletindesoinBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

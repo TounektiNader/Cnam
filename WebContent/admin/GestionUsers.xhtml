@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{usersBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{usersBean.listUsers}" var="us" id="tab">
+
+		
+			
+			
+			<p:column headerText="Username">
+				<h:outputText value="#{us.username}" />
+			</p:column>
+			
+			<p:column headerText="Password ">
+				<h:outputText value="#{us.password}" />
+			</p:column>
+			
+				<p:column headerText="Rôle">
+				<h:outputText value="#{us.role}" />
+			</p:column>
+			
+			<p:column headerText="Enabled">
+				<h:outputText value="#{us.enabled}" />
+			</p:column>
+						
+			<p:column headerText="Code Cnam  ">
+				<h:outputText value="#{us.centrecnam.codeCnam}" />
+			</p:column>
+			
+			
+		
+			
+			
+				
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{usersBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{us}" target="#{usersBean.users}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{usersBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{us}" target="#{usersBean.users}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+			
+				
+					<h:outputText value="Username" />
+				<p:inputText value="#{usersBean.users.username}" readonly="#{usersBean.read}" />
+				
+								
+				
+					<h:outputText value="Password" />
+				<p:inputText value="#{usersBean.users.password}" />
+				
+				
+					<h:outputText value="Rôle" />
+				
+				
+				<p:selectOneRadio value="#{usersBean.users.role}" >
+				
+				<f:selectItem itemLabel="ROLE_USER" itemValue="ROLE_USER"/>
+				<f:selectItem itemLabel="ROLE_ADMIN" itemValue="ROLE_ADMIN"/>
+			
+				</p:selectOneRadio>
+				
+				
+				
+					<h:outputText value="Enabled" />
+				<p:selectOneRadio value="#{usersBean.users.enabled}" >
+				<f:selectItem itemLabel="Désactiver" itemValue="0"/>
+				<f:selectItem itemLabel="Activer" itemValue="1"/>
+				</p:selectOneRadio>
+				
+				
+					<h:outputText value="Code Cnam" />
+				<p:selectOneMenu   disabled="#{usersBean.read}"    value="#{usersBean.users.centrecnam.codeCnam}">
+					<f:selectItems value="#{centrecnamBean.listCentrecnam}" var="cn"  
+						itemLabel="#{cn.codeCnam}" itemValue="#{cn.codeCnam}"  />
+				</p:selectOneMenu> 
+
+
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{usersBean.ajouterUsers()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{usersBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{usersBean.modiferUsers()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{usersBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

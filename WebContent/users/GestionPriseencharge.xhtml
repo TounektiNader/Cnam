@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{priseenchargeBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{priseenchargeBean.listPriseencharge}" var="ps" id="tab">
+
+		
+			
+			
+			<p:column headerText="Code Prise En Charge">
+				<h:outputText value="#{ps.codDpe}" />
+			</p:column>
+			
+			<p:column headerText="Code Cnam">
+				<h:outputText value="#{ps.beneficiaire.codeBenef}" />
+			</p:column>
+			
+				
+			
+				<p:column headerText="Date Dépôt">
+				<h:outputText value="#{ps.dateDepot}" />
+			</p:column>
+			
+			
+			<p:column headerText="Date Edition">
+				<h:outputText value="#{ps.dateEdition}" />
+			</p:column>
+			
+			<p:column headerText="Code Cnam">
+				<h:outputText value="#{ps.centrecnam.codeCnam}" />
+			</p:column>
+			
+			
+			<p:column headerText="Etat">
+				<h:outputText value="#{ps.etatPre}" />
+			</p:column>
+	
+						
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{priseenchargeBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{ps}" target="#{priseenchargeBean.priseencharge}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{priseenchargeBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{ps}" target="#{priseenchargeBean.priseencharge}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+			
+				<h:outputText value="Code Prise En Charge" />
+				<p:inputText value="#{priseenchargeBean.priseencharge.codDpe}" readonly="#{priseenchargeBean.read}" />
+				
+			
+				
+				<h:outputText value="Code Bénéficiaire" />
+				<p:selectOneMenu   disabled="#{beneficiaireBean.read}"    value="#{priseenchargeBean.priseencharge.beneficiaire.codeBenef}">
+					<f:selectItems value="#{beneficiaireBean.listBeneficiaire}" var="be"  
+						itemLabel="#{be.codeBenef}" itemValue="#{be.codeBenef}"  />
+				</p:selectOneMenu> 
+				
+				
+				<h:outputText value="Date de Dépôt" />
+				<p:calendar pattern="dd/MM/yyyy" value="#{priseenchargeBean.priseencharge.dateDepot}" />
+				
+				<h:outputText value="Date Edition" />
+				<p:calendar pattern="dd/MM/yyyy" value="#{priseenchargeBean.priseencharge.dateEdition}" />
+				
+				<h:outputText value="Code CNAM" />
+				<p:selectOneMenu   disabled="#{centrecnamBean.read}"    value="#{priseenchargeBean.priseencharge.centrecnam.codeCnam}">
+					<f:selectItems value="#{centrecnamBean.listCentrecnam}" var="cn"  
+						itemLabel="#{cn.codeCnam}" itemValue="#{cn.codeCnam}"  />
+				</p:selectOneMenu> 
+				
+				
+				
+					<h:outputText value="Etat" />
+							
+				<p:selectOneRadio value="#{priseenchargeBean.priseencharge.etatPre}" >
+				
+				<f:selectItem itemLabel="Saisie" itemValue="Saisie"/>
+				<f:selectItem itemLabel="Contrôle Medicale" itemValue="Contrôle Medicale"/>
+				<f:selectItem itemLabel="Editée" itemValue="Editée"/>
+				<f:selectItem itemLabel="Refusée" itemValue="Refusée"/>
+				</p:selectOneRadio>
+				
+								
+				<p:commandButton value="ajouter"
+					action="#{priseenchargeBean.ajouterPriseencharge()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{priseenchargeBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{priseenchargeBean.modiferPriseencharge()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{priseenchargeBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

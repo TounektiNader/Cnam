@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+
+
+<bean id="assureDao" class ="com.cnam.dao.imp.AssureDaoImp"/>
+<bean id="assureServ" class="com.cnam.services.imp.AssureServiceImp">
+<property ref="assureDao"  name="assureDao"/>
+</bean>
+
+<bean id="beneficiaireDao" class ="com.cnam.dao.imp.BeneficiaireDaoImp"/>
+<bean id="beneficiaireServ" class="com.cnam.services.imp.BeneficiaireServiceImp">
+<property ref="beneficiaireDao"  name="beneficiaireDao"/>
+</bean>
+
+
+<bean id="bsacteDao" class ="com.cnam.dao.imp.BsacteDaoImp"/>
+<bean id="bsacteServ" class="com.cnam.services.imp.BsacteServiceImp">
+<property ref="bsacteDao"  name="bsacteDao"/>
+</bean>
+
+<bean id="bsmedicamentDao" class ="com.cnam.dao.imp.BsmedicamentDaoImp"/>
+<bean id="bsmedicamentServ" class="com.cnam.services.imp.BsmedicamentServiceImp">
+<property ref="bsmedicamentDao"  name="bsmedicamentDao"/>
+</bean>
+
+
+<bean id="bsvisitDao" class ="com.cnam.dao.imp.BsvisitDaoImp"/>
+<bean id="bsvisitServ" class="com.cnam.services.imp.BsvisitServiceImp">
+<property ref="bsvisitDao"  name="bsvisitDao"/>
+</bean>
+
+
+<bean id="bulletindesoinDao" class ="com.cnam.dao.imp.BulletindesoinDaoImp"/>
+<bean id="bulletindesoinServ" class="com.cnam.services.imp.BulletindesoinServiceImp">
+<property ref="bulletindesoinDao"  name="bulletindesoinDao"/>
+</bean>
+
+
+<bean id="centrecnamDao" class ="com.cnam.dao.imp.CentrecnamDaoImp"/>
+<bean id="centrecnamServ" class="com.cnam.services.imp.CentrecnamServiceImp">
+<property ref="centrecnamDao"  name="centrecnamDao"/>
+</bean>
+
+
+
+<bean id="changementDao" class ="com.cnam.dao.imp.ChangementDaoImp"/>
+<bean id="changementServ" class="com.cnam.services.imp.ChangementServiceImp">
+<property ref="changementDao"  name="changementDao"/>
+</bean>
+
+
+
+<bean id="cnamsDao" class ="com.cnam.dao.imp.CnamsDaoImp"/>
+<bean id="cnamsServ" class="com.cnam.services.imp.CnamsServiceImp">
+<property ref="cnamsDao"  name="cnamsDao"/>
+</bean>
+
+
+<bean id="convetionDao" class ="com.cnam.dao.imp.ConventionDaoImp"/>
+<bean id="conventionServ" class="com.cnam.services.imp.ConvetionServiceImp">
+<property ref="convetionDao"  name="conventionDao"/>
+</bean>
+
+
+<bean id="decisionDao" class ="com.cnam.dao.imp.DecisionDaoImp"/>
+<bean id="decisionServ" class="com.cnam.services.imp.DecisionServiceImp">
+<property ref="decisionDao"  name="decisionDao"/>
+</bean>
+
+<bean id="factureDao" class ="com.cnam.dao.imp.FactureDaoImp"/>
+<bean id="factureServ" class="com.cnam.services.imp.FactureServiceImp">
+<property ref="factureDao"  name="factureDao"/>
+</bean>
+
+
+<bean id="filiereDao" class ="com.cnam.dao.imp.FiliereDaoImp"/>
+<bean id="filiereServ" class="com.cnam.services.imp.FiliereServiceImp">
+<property ref="filiereDao"  name="filiereDao"/>
+</bean>
+
+
+<bean id="plafonsDao" class ="com.cnam.dao.imp.PlafonsDaoImp"/>
+<bean id="plafonsServ" class="com.cnam.services.imp.PlafonsServiceImp">
+<property ref="plafonsDao"  name="plafonsDao"/>
+</bean>
+
+
+<bean id="prestataireDao" class ="com.cnam.dao.imp.PrestataireDaoImp"/>
+<bean id="prestataireServ" class="com.cnam.services.imp.PrestataireServiceImp">
+<property ref="prestataireDao"  name="prestataireDao"/>
+</bean>
+
+
+<bean id="prestationDao" class ="com.cnam.dao.imp.PrestationDaoImp"/>
+<bean id="prestationServ" class="com.cnam.services.imp.PrestationServiceImp">
+<property ref="prestationDao"  name="prestationDao"/>
+</bean>
+
+
+<bean id="priseenchargeDao" class ="com.cnam.dao.imp.PriseenchargeDaoImp"/>
+<bean id="priseenchargeServ" class="com.cnam.services.imp.PriseenchargeServiceImp">
+<property ref="priseenchargeDao"  name="priseenchargeDao"/>
+</bean>
+
+
+<bean id="reclamationDao" class ="com.cnam.dao.imp.ReclamationDaoImp"/>
+<bean id="reclamationServ" class="com.cnam.services.imp.ReclamationServiceImp">
+<property ref="reclamationDao"  name="reclamationDao"/>
+</bean>
+
+
+<bean id="usersDao" class ="com.cnam.dao.imp.UsersDaoImp"/>
+<bean id="usersServ" class="com.cnam.services.imp.UsersServiceImp">
+<property ref="usersDao"  name="usersDao"/>
+</bean>
+
+
+
+<bean id="utilisateurDao" class ="com.cnam.dao.imp.UtilisateurDaoImp"/>
+<bean id="utilisateurServ" class="com.cnam.services.imp.UtilisateurServiceImp">
+<property ref="utilisateurDao"  name="utilisateurDao"/>
+</bean>
+
+</beans>

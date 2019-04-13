@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		
+
+
+		<p:dataTable value="#{changementBean.listChangement}" var="chan" id="tab">
+
+		
+			
+			
+			<p:column headerText="Id Changement">
+				<h:outputText value="#{chan.idChangement}" />
+			</p:column>
+			
+				<p:column headerText="Matricule Assurée">
+				<h:outputText value="#{chan.matricule}" />
+			</p:column>
+			
+			<p:column headerText="Nom Assurée">
+				<h:outputText value="#{chan.user}" />
+			</p:column>
+						
+			<p:column headerText="Filière Actuelle ">
+				<h:outputText value="#{chan.filiereActuelle}" />
+			</p:column>
+			
+			
+			<p:column headerText="Date De Changement ">
+				<h:outputText value="#{chan.dateChangement}" />
+			</p:column>
+			
+				<p:column headerText="Filière à Changer ">
+				<h:outputText value="#{chan.filiereChange}" />
+			</p:column>
+			
+			<p:column headerText="Etat De Demande Changement ">
+				<h:outputText value="#{chan.etat}" />
+			</p:column>
+			
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{changementBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{chan}" target="#{changementBean.changement}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{changementBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{chan}" target="#{changementBean.changement}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+				
+					<h:outputText value="Matircule Assurée" />
+				<p:inputText value="#{changementBean.changement.matricule}" readonly="#{changementBean.read}" />
+				
+				
+					<h:outputText value="Nom Assurée" />
+				<p:inputText value="#{changementBean.changement.user}" />
+				
+				
+					<h:outputText value="Filière Actuelle " />
+				<p:inputText value="#{changementBean.changement.filiereActuelle}" />
+				
+				
+					<h:outputText value="Filière De Changement " />
+				<p:inputText value="#{changementBean.changement.filiereChange}" />
+				
+				
+					<h:outputText value="Date De Changement " />
+				<p:inputText value="#{changementBean.changement.dateChangement}" />
+				
+					<h:outputText value="Etat De Demande Changement " />
+				
+				
+				<p:selectOneRadio value="#{changementBean.changement.etat}" >
+				
+				<f:selectItem itemLabel="Traité" itemValue="Traité"/>
+				<f:selectItem itemLabel="Non Traité" itemValue="Non Traité"/>
+				
+				</p:selectOneRadio>
+
+
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{changementBean.ajouterChangement()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{changementBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{changementBean.modiferChangement()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{changementBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

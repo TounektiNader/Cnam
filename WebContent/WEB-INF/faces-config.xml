@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+    <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>GestionUsers</from-outcome>
+   <to-view-id>/admin/GestionUsers.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>GestionActe</from-outcome>
+   <to-view-id>/users/GestionActe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  
+   <navigation-case>
+   <from-outcome>GestionAssuree</from-outcome>
+   <to-view-id>/users/GestionAssuree.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  
+  <navigation-case>
+   <from-outcome>GestionBeneficiaire</from-outcome>
+   <to-view-id>/users/GestionBeneficiaire.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>GestionBs</from-outcome>
+   <to-view-id>/users/GestionBs.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>GestionCentreCnam</from-outcome>
+   <to-view-id>/users/GestionCentreCnam.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+    <navigation-case>
+   <from-outcome>GestionChangement</from-outcome>
+   <to-view-id>/users/GestionChangement.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  
+  
+   <navigation-case>
+   <from-outcome>GestionCnams</from-outcome>
+   <to-view-id>/users/GestionCnams.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionConvention</from-outcome>
+   <to-view-id>/users/GestionConvention.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionDecision</from-outcome>
+   <to-view-id>/users/GestionDecision.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionFacture</from-outcome>
+   <to-view-id>/users/GestionFacture.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionFiliere</from-outcome>
+   <to-view-id>/users/GestionFiliere.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  
+   <navigation-case>
+   <from-outcome>GestionMedicament</from-outcome>
+   <to-view-id>/users/GestionMedicament.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionPlafond</from-outcome>
+   <to-view-id>/users/GestionPlafond.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionPrestataire</from-outcome>
+   <to-view-id>/users/GestionPrestataire.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionPrestation</from-outcome>
+   <to-view-id>/users/GestionPrestation.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionUtilisateur</from-outcome>
+   <to-view-id>/users/GestionUtilisateur.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>GestionVisit</from-outcome>
+   <to-view-id>/users/GestionVisit.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+   <navigation-case>
+   <from-outcome>Reclamation</from-outcome>
+   <to-view-id>/users/Reclamation.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+     <navigation-case>
+   <from-outcome>GestionPriseencharge</from-outcome>
+   <to-view-id>/users/GestionPriseencharge.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  
+     <navigation-case>
+   <from-outcome>login</from-outcome>
+   <to-view-id>/login/login.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>Accuiel</from-outcome>
+   <to-view-id>/View/index.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  
+ </navigation-rule>
+
+
+
+
+<application>
+  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+ </application>
+</faces-config>

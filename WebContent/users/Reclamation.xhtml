@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		
+
+
+		<p:dataTable value="#{reclamationBean.listReclamation}" var="rec" id="tab">
+
+<f:facet name="header">
+       <p>Consultation Reclamations </p>
+    </f:facet>
+    
+			<p:column headerText="ID reclamation">
+				<h:outputText value="#{rec.id}" />
+			</p:column>
+
+
+
+			<p:column headerText="Matricule Assurée">
+				<h:outputText value="#{rec.matricule}" />
+			</p:column>
+
+			<p:column headerText="E_mail">
+				<h:outputText value="#{rec.email}" />
+			</p:column>
+ 
+ 
+            <p:column headerText="Reclamation">
+				<h:outputText value="#{rec.message}" />
+			</p:column>
+
+			
+
+			<p:column headerText="Action" >
+				
+            
+               <p:commandButton value="Enoyer Mail "  onclick="PF('dlg3').show();" update=":f1:panel" > 
+               	<f:setPropertyActionListener value="#{rec}" target="#{reclamationBean.reclamation}" />
+               	</p:commandButton>
+               	
+               	 
+               	
+              </p:column>
+			</p:dataTable>
+			
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+				
+				
+					<h:outputText value="Email Assurée" />
+				<p:inputText value="#{reclamationBean.reclamation.email}" readonly="#{reclamationBean.read}" />
+				
+				
+					<h:outputText value="Subject" />
+				<p:inputText value="#{reclamationBean.sub}" />
+				
+				
+					<h:outputText value="Objet" />
+				<p:inputText value="#{reclamationBean.obj}" />
+				
+				
+
+				
+				
+				
+				
+					
+					<p:commandButton value="Envoyer"
+					action="#{reclamationBean.envoyer()}" update="tab"
+					onclick="PF('dlg3').hide();"  >
+						<p:confirm header="Confirmation" message="Voulez vous Envoyer un mail  ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+
+
+
+		
+				
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

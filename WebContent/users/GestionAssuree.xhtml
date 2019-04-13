@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{assureBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{assureBean.listAssure}" var="ass" id="tab">
+
+			<p:column headerText="Matricule Assurée">
+				<h:outputText value="#{ass.matriculeAssure}" />
+			</p:column>
+
+
+			<p:column headerText="Nombre Béneficiaire">
+				<h:outputText value="#{ass.nbrBeneficiaire}" />
+			</p:column>
+			
+			
+			<p:column headerText="Caisse Originale">
+				<h:outputText value="#{ass.caisseOriginale}" />
+			</p:column>
+			
+			
+			
+			<p:column headerText="Filiere">
+				<h:outputText value="#{ass.filiere.libelle}" />
+			</p:column>
+
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{assureBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{ass}" target="#{assureBean.assure}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{assureBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{ass}" target="#{assureBean.assure}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+				<h:outputText value="Matricule Assurée" />
+				<p:inputText value="#{assureBean.assure.matriculeAssure}" readonly="#{assureBean.read}"/>
+				
+				
+					<h:outputText value="Nombre Bénéfeciaire" />
+				<p:inputText value="#{assureBean.assure.nbrBeneficiaire}" />
+				
+				
+					<h:outputText value="Caissse Originale" />
+				<p:selectOneRadio value="#{assureBean.assure.caisseOriginale}" >
+				<f:selectItem itemLabel="CNRPS" itemValue="CNRPS"/>
+				<f:selectItem itemLabel="CNSS" itemValue="CNSS"/>
+				</p:selectOneRadio>
+				
+
+				<h:outputText value="Filière" />
+				<p:selectOneMenu value="#{assureBean.assure.filiere.codFiliere}">
+					<f:selectItems value="#{filiereBean.listFiliere}" var="fil"
+						itemLabel="#{fil.libelle}" itemValue="#{fil.codFiliere}" />
+				</p:selectOneMenu>
+				
+				<p:commandButton value="ajouter"
+					action="#{assureBean.ajouterAssure()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{assureBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{assureBean.modiferAssure()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{assureBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+					 
+					 <p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

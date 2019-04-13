@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{plafonsBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{plafonsBean.listPlafons}" var="pla" id="tab">
+
+		
+			
+			<p:column headerText="Année">
+				<h:outputText value="#{pla.annee}" />
+			</p:column>
+			
+			<p:column headerText="Code Plafond">
+				<h:outputText value="#{pla.codPlafonds}" />
+			</p:column>
+			
+				<p:column headerText="Matricule Assurée">
+				<h:outputText value="#{pla.assuresociale.matriculeAssure}" />
+			</p:column>
+			
+			<p:column headerText="Montant Global">
+				<h:outputText value="#{pla.montantGlobal}" />
+			</p:column>
+			
+				<p:column headerText="Montant Dépense Acte">
+				<h:outputText value="#{pla.montantDepenseActe}" />
+			</p:column>
+			
+			
+				<p:column headerText="Montant Dépense Ordonannce">
+				<h:outputText value="#{pla.montantDepenseOrdonannce}" />
+			</p:column>
+			
+				<p:column headerText="Montant Dépense Visit">
+				<h:outputText value="#{pla.montantDepenseVisit}" />
+			</p:column>
+			
+				
+			
+			<p:column headerText="Predicat">
+				<h:outputText value="#{pla.predicat}" />
+			</p:column>
+					
+						
+			<p:column headerText="Code Bulletin De Soin ">
+				<h:outputText value="#{pla.bulletindesoin.codBdeSoin}" />
+			</p:column>
+			
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{plafonsBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{pla}" target="#{plafonsBean.plafons}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{plafonsBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{pla}" target="#{plafonsBean.plafons}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+				
+				
+					<h:outputText value="Code Plafond" />
+				<p:inputText value="#{plafonsBean.plafons.codPlafonds}" readonly="#{plafonsBean.read}" />
+				
+				<h:outputText value="Matricule Assurée" />
+				<p:selectOneMenu   disabled="#{plafonsBean.read}"    value="#{plafonsBean.plafons.assuresociale.matriculeAssure}">
+					<f:selectItems value="#{assureBean.listAssure}" var="ass"  
+						itemLabel="#{ass.matriculeAssure}" itemValue="#{ass.matriculeAssure}"  />
+				</p:selectOneMenu> 
+				
+				
+				
+					<h:outputText value="Montant Global" />
+				<p:inputText value="#{plafonsBean.plafons.montantGlobal}" />
+				
+				
+					<h:outputText value="Montant Dépense Acte" />
+				<p:inputText value="#{plafonsBean.plafons.montantDepenseActe}" />
+				
+				
+					<h:outputText value="Montant Dépense Ordonnance" />
+				<p:inputText value="#{plafonsBean.plafons.montantDepenseOrdonannce}" />
+				
+					<h:outputText value="Montant Dépense Visit" />
+				<p:inputText value="#{plafonsBean.plafons.montantDepenseVisit}" />
+				
+					<h:outputText value="Predicat" />
+				<p:inputText value="#{plafonsBean.plafons.predicat}" />
+				
+				
+					<h:outputText value="Année" />
+				<p:inputText value="#{plafonsBean.plafons.annee}" />
+			
+				
+				
+				
+				<h:outputText value="Code Bulletin De Soin" />
+				<p:selectOneMenu   disabled="#{plafonsBean.read}"    value="#{plafonsBean.plafons.bulletindesoin.codBdeSoin}">
+					<f:selectItems value="#{bulletindesoinBean.listBulletindesoin}" var="bs"  
+						itemLabel="#{bs.codBdeSoin}" itemValue="#{bs.codBdeSoin}"  />
+				</p:selectOneMenu> 
+				
+				
+
+
+				
+				<p:commandButton value="ajouter"
+					action="#{plafonsBean.ajouterPlafons()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{plafonsBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{plafonsBean.modiferFiliere()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{plafonsBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<link href="../assests/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="../assests/font-awesome/css/font-awesome.css" rel="stylesheet"></link>
+	<link href="../assests/css/sb-admin.css" rel="stylesheet"></link>
+	
+</h:head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" action="../j_spring_security_check" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <h:inputText  styleClass="from-control"  id="j_username" ></h:inputText>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputSecret  styleClass="from-control"  id="j_password" ></h:inputSecret>
+                                </div>
+                                
+                                <!-- Change this to a button or input when using this as a form -->
+                               
+                                <h:commandButton value="Login" styleClass="btn btn-lg btn-success btn-block" type="submit"></h:commandButton>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="js/sb-admin.js"></script>
+
+</body>
+
+</html>

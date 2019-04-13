@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{beneficiaireBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{beneficiaireBean.listBeneficiaire}" var="ben" id="tab">
+
+		
+			
+			
+			<p:column headerText="Matricule Assurée">
+				<h:outputText value="#{ben.assuresociale.matriculeAssure}" />
+			</p:column>
+			
+				<p:column headerText="Code Beneficiaire">
+				<h:outputText value="#{ben.codeBenef}" />
+			</p:column>
+						
+			<p:column headerText="Nom ">
+				<h:outputText value="#{ben.nom}" />
+			</p:column>
+			
+				<p:column headerText="Prénom ">
+				<h:outputText value="#{ben.prenom}" />
+			</p:column>
+			
+			<p:column headerText="Carte d'indentité">
+				<h:outputText value="#{ben.cin}" />
+			</p:column>
+			
+			<p:column headerText="âge">
+				<h:outputText value="#{ben.age}" />
+			</p:column>
+			
+			
+			<p:column headerText="Rang">
+				<h:outputText value="#{ben.rang}" />
+			</p:column>
+			
+			
+			<p:column headerText="Type">
+				<h:outputText value="#{ben.type}" />
+			</p:column>
+			
+			
+			<p:column headerText="Adresse">
+				<h:outputText value="#{ben.adresse}" />
+			</p:column>
+						
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{beneficiaireBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{ben}" target="#{beneficiaireBean.beneficiaire}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{beneficiaireBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{ben}" target="#{beneficiaireBean.beneficiaire}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+				<h:outputText value="Matricule Assurée" />
+				<p:selectOneMenu   disabled="#{beneficiaireBean.read}"    value="#{beneficiaireBean.beneficiaire.assuresociale.matriculeAssure}">
+					<f:selectItems value="#{assureBean.listAssure}" var="ass"  readonly="#{beneficiaireBean.read}"
+						itemLabel="#{ass.matriculeAssure}" itemValue="#{ass.matriculeAssure}"  />
+				</p:selectOneMenu> 
+				
+					<h:outputText value="Code Bénéfeciaire" />
+				<p:inputText value="#{beneficiaireBean.beneficiaire.codeBenef}" readonly="#{beneficiaireBean.read}" />
+				
+				
+					<h:outputText value="Carte d'indentité" />
+				<p:inputText value="#{beneficiaireBean.beneficiaire.cin}" />
+				
+				
+					<h:outputText value="Nom" />
+				<p:inputText value="#{beneficiaireBean.beneficiaire.nom}" />
+				
+				
+					<h:outputText value="Prénom" />
+				<p:inputText value="#{beneficiaireBean.beneficiaire.prenom}" />
+
+
+					<h:outputText value="Rang" />
+							
+				<p:selectOneRadio value="#{beneficiaireBean.beneficiaire.rang}" >
+				
+				<f:selectItem itemLabel="1" itemValue="1"/>
+				<f:selectItem itemLabel="2" itemValue="2"/>
+				<f:selectItem itemLabel="3" itemValue="3"/>
+				
+				</p:selectOneRadio>
+				
+				<h:outputText value="âge"/>
+				<p:inputText value="#{beneficiaireBean.beneficiaire.age}" />
+			
+				
+				
+					<h:outputText value="Type" />
+								
+				<p:selectOneRadio value="#{beneficiaireBean.beneficiaire.type}" >
+				
+				<f:selectItem itemLabel="Conjoint" itemValue="Conjoint"/>
+				<f:selectItem itemLabel="Enfant" itemValue="Enfant"/>
+				<f:selectItem itemLabel="L'ascendant" itemValue="L'ascendant"/>
+				<f:selectItem itemLabel="Assurée" itemValue="Assurée"/>
+				</p:selectOneRadio>
+				
+				
+					<h:outputText value="Adresse" />
+				<p:inputText value="#{beneficiaireBean.beneficiaire.adresse}" />
+				
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{beneficiaireBean.ajouterBenficiaire()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{beneficiaireBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{beneficiaireBean.modiferBeneficiaire()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{beneficiaireBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+					 
+					 <p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

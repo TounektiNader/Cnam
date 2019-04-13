@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{prestataireBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{prestataireBean.listPrestataire}" var="prest" id="tab">
+
+		
+			
+			
+			<p:column headerText="Matricule Prestataire">
+				<h:outputText value="#{prest.matriculePrestataire}" />
+			</p:column>
+			
+				<p:column headerText="Type Prestataire">
+				<h:outputText value="#{prest.typePrestataire}" />
+			</p:column>
+			
+			<p:column headerText="Maison Sociale">
+				<h:outputText value="#{prest.maisonSociale}" />
+			</p:column>
+						
+			<p:column headerText="Code Convention">
+				<h:outputText value="#{prest.convention.codConv}" />
+			</p:column>
+			
+			
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{prestataireBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{prest}" target="#{prestataireBean.prestataire}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{prestataireBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{prest}" target="#{prestataireBean.prestataire}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+			
+				
+					<h:outputText value="Matricule Prestataire" />
+				<p:inputText value="#{prestataireBean.prestataire.matriculePrestataire}" readonly="#{prestataireBean.read}" />
+				
+				
+					<h:outputText value="Type Prestataire" />
+				<p:inputText value="#{prestataireBean.prestataire.typePrestataire}" />
+				
+				
+					<h:outputText value="Maison sociale" />
+				<p:inputText value="#{prestataireBean.prestataire.maisonSociale}" />
+				
+				
+					<h:outputText value="Code Convention" />
+				<p:selectOneMenu   disabled="#{prestataireBean.read}"    value="#{prestataireBean.prestataire.convention.codConv}">
+					<f:selectItems value="#{convetionBean.listConvention}" var="con"  
+						itemLabel="#{con.codConv}" itemValue="#{con.codConv}"  />
+				</p:selectOneMenu> 
+				
+				
+
+
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{prestataireBean.ajouterPrestataire()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{prestataireBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{prestataireBean.modiferPrestataire()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{prestataireBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

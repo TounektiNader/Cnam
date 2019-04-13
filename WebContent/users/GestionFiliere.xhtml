@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{filiereBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+
+		<p:dataTable value="#{filiereBean.listFiliere}" var="fil" id="tab">
+
+			<p:column headerText="Code Filière">
+				<h:outputText value="#{fil.codFiliere}" />
+			</p:column>
+
+
+
+			<p:column headerText="Année">
+				<h:outputText value="#{fil.annee}" />
+			</p:column>
+
+			<p:column headerText="Libellé">
+				<h:outputText value="#{fil.libelle}" />
+			</p:column>
+
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{filiereBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{fil}" target="#{filiereBean.filiere}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="Modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{filiereBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{fil}" target="#{filiereBean.filiere}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+				<h:outputText value="Code Filière" />
+				<p:inputText value="#{filiereBean.filiere.codFiliere}"  readonly="#{filiereBean.read}"/>
+
+			
+				<h:outputText value="Année" />
+				<p:inputText value="#{filiereBean.filiere.annee}" />
+				
+					<h:outputText value="Libellé" />
+				
+				
+				<p:selectOneRadio value="#{filiereBean.filiere.libelle}" >
+				
+				<f:selectItem itemLabel="Remboursement" itemValue="Remboursement"/>
+				<f:selectItem itemLabel="Privée" itemValue="Privée"/>
+				<f:selectItem itemLabel="Publique" itemValue="Publique"/>
+				
+				</p:selectOneRadio>
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{filiereBean.ajouterFiliere()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{filiereBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{filiereBean.modiferFiliere()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{filiereBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>

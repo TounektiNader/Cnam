@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="app_cnam" match-name="assuresociale"/>
+  <table-filter match-catalog="app_cnam" match-name="beneficiaire"/>
+  <table-filter match-catalog="app_cnam" match-name="bsacte"/>
+  <table-filter match-catalog="app_cnam" match-name="bsmedicament"/>
+  <table-filter match-catalog="app_cnam" match-name="bsvisit"/>
+  <table-filter match-catalog="app_cnam" match-name="bulletindesoin"/>
+  <table-filter match-catalog="app_cnam" match-name="centrecnam"/>
+  <table-filter match-catalog="app_cnam" match-name="changement"/>
+  <table-filter match-catalog="app_cnam" match-name="cnams"/>
+  <table-filter match-catalog="app_cnam" match-name="convention"/>
+  <table-filter match-catalog="app_cnam" match-name="decision"/>
+  <table-filter match-catalog="app_cnam" match-name="facture"/>
+  <table-filter match-catalog="app_cnam" match-name="filiere"/>
+  <table-filter match-catalog="app_cnam" match-name="plafons"/>
+  <table-filter match-catalog="app_cnam" match-name="prestataire"/>
+  <table-filter match-catalog="app_cnam" match-name="prestation"/>
+  <table-filter match-catalog="app_cnam" match-name="priseencharge"/>
+  <table-filter match-catalog="app_cnam" match-name="reclamation"/>
+  <table-filter match-catalog="app_cnam" match-name="users"/>
+  <table-filter match-catalog="app_cnam" match-name="utilisateur"/>
+</hibernate-reverse-engineering>

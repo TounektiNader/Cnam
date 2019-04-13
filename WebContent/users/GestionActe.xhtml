@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+ 
+</h:head>
+
+
+	<ui:composition template="../facelets/template.xhtml">
+	<ui:define name="content">
+	
+
+
+<h:body>
+	<h:form id="f1">
+	   <p:messages autoUpdate="true" showDetail="true" ></p:messages>
+		<p:commandButton value="Ajouter" onclick="PF('dlg3').show();" action="#{bsacteBean.clickAdd()}" update=":f1:panel">		</p:commandButton>
+
+		<p:dataTable value="#{bsacteBean.listBsacte}" var="bsa" id="tab">
+
+			
+			
+			<p:column headerText="Code Acte">
+				<h:outputText value="#{bsa.codActe}" />
+			</p:column>
+			
+				<p:column headerText="Montant Depense Acte">
+				<h:outputText value="#{bsa.montantDepenseActe}" />
+			</p:column>
+			
+			<p:column headerText="Nombre Acte">
+				<h:outputText value="#{bsa.nombreActe}" />
+			</p:column>
+						
+			<p:column headerText="Année ">
+				<h:outputText value="#{bsa.annee}" />
+			</p:column>
+			
+				<p:column headerText="Code Bulletin De soin ">
+				<h:outputText value="#{bsa.bulletindesoin.codBdeSoin}" />
+			</p:column>
+			
+			
+
+			<p:column headerText="Action">
+				<p:commandButton value="Supprimer" action ="#{bsacteBean.supprimer()}"  update="tab">
+				<f:setPropertyActionListener value="#{bsa}" target="#{bsacteBean.bsacte}" /> 
+				<p:confirm header="Confirmation" message="Voulez vous supprimez ??" icon="ui-icon-alert" />
+			
+				</p:commandButton>
+					<p:commandButton value="modifier"  onclick="PF('dlg3').show();" update=":f1:panel" action="#{bsacteBean.clickEdit()}">
+				<f:setPropertyActionListener value="#{bsa}" target="#{bsacteBean.bsacte}" /> 
+				
+				</p:commandButton>
+
+			</p:column>
+
+
+		</p:dataTable>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+				
+		<p:dialog header="Effects" widgetVar="dlg3" showEffect="explode"
+			hideEffect="bounce" modal="true">
+
+			<p:panelGrid columns="2" id="panel">
+	
+				
+				<h:outputText value="Code Bulletin De Soin" />
+				<p:selectOneMenu   disabled="#{bsacteBean.read}"    value="#{bsacteBean.bsacte.bulletindesoin.codBdeSoin}">
+					<f:selectItems value="#{bulletindesoinBean.listBulletindesoin}" var="bss"  
+						itemLabel="#{bss.codBdeSoin}" itemValue="#{bss.codBdeSoin}"  />
+				</p:selectOneMenu> 
+				
+					<h:outputText value="Code Acte" />
+				<p:inputText value="#{bsacteBean.bsacte.codActe}" readonly="#{bsacteBean.read}" />
+				
+				
+					<h:outputText value="Montant Depense Acte" />
+				<p:inputText value="#{bsacteBean.bsacte.montantDepenseActe}" />
+				
+				
+					<h:outputText value="Nombre Acte" />
+				<p:inputText value="#{bsacteBean.bsacte.nombreActe}" />
+				
+				
+					<h:outputText value="Annnée" />
+				<p:calendar pattern="dd/MM/yyyy" value="#{bsacteBean.bsacte.annee}" />
+
+
+				
+				
+				
+				<p:commandButton value="ajouter"
+					action="#{bsacteBean.ajouterBsacte()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{bsacteBean.btnadd}" />
+					
+					<p:commandButton value="modifier"
+					action="#{bsacteBean.modiferBsacte()}" update="tab"
+					onclick="PF('dlg3').hide();" rendered="#{bsacteBean.btnedit}"  >
+						<p:confirm header="Confirmation" message="Voulez vous sauvgarder votre Changement ??" icon="ui-icon-alert" />
+					 </p:commandButton>
+
+<p:commandButton value="Annuler" onclick="PF('dlg3').hide();"></p:commandButton>
+			</p:panelGrid>
+
+		</p:dialog>
+
+		
+
+
+	</h:form>
+</h:body>
+</ui:define>
+</ui:composition>
+
+</html>
